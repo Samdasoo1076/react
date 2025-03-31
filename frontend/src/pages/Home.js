@@ -10,7 +10,7 @@ function Home() {
     // 백엔드: http://localhost:4000
     // API: http://localhost:4000/api/posts
     // 프록시 설정이 없다면 절대경로로 작성:
-    axios.get('http://localhost:4000/api/posts')
+    axios.get(`${process.env.REACT_APP_API_URL}/api/posts`)
       .then(response => {
         setPosts(response.data);
         setLoading(false);

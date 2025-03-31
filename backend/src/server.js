@@ -6,7 +6,7 @@ const postRoutes = require('./routes/posts');
 const codeRoutes = require('./routes/pcode'); 
 
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: '${process.env.REACT_APP_API_URL}:3000',
   optionsSuccessStatus: 200,
 };
 

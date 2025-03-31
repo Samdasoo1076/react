@@ -12,15 +12,16 @@ router.post('/', async (req, res) => {
   
     try {
       const now = new Date();
+      const DEL_TF = 'N';
       const sql = `
         INSERT INTO TBL_CODE_PARENT
-          (PCODE, REG_DATE, PCODE_NM, PCODE_MEMO, USE_TF)
+          (PCODE, PCODE_NM, PCODE_MEMO, REG_DATE, UP_DATE, USE_TF, DEL_TF)
         VALUES
-          (?, ?, ?, ?, ?)
+          (?, ?, ?, ?, ?, ?, ?)
       `;
   
       // 쿼리 실행
-      const resultOrArray = await pool.execute(sql, [PCODE, now, PCODE_NM, PCODE_MEMO, USE_TF]);
+      const resultOrArray = await pool.execute(sql, [PCODE, PCODE_NM, PCODE_MEMO, now, now, USE_TF, DEL_TF]);
   
       // 반환 결과가 배열인지 객체인지 확인
       let result;
@@ -38,5 +39,20 @@ router.post('/', async (req, res) => {
       res.status(500).json({ message: '코드 등록 실패', error: error.message });
     }
   });
+
+
+  // 코드 목록 조회 엔드포인트
+  router.get('/', async (req, res) => {
+    try {
+      const result = await pool.execute(
+        'SELECT * FROM TBL_CODE_PARENT ORDER BY UP_DATE DESC'
+      );
+      res.json(result);
+    } catch (error) {
+      console.error('코드 조회 에러:', error);
+      res.status(500).json({ message: '코드 조회 실패', error: error.message });
+    }
+  });
+  
 
 module.exports = router;
