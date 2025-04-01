@@ -1,7 +1,9 @@
 // src/pages/CodeManagement.js
 import React, { useState } from 'react';
+
 import CodeRegisterModal from '../components/Code/pcode_list';
 import CodeList from '../components/Code/CodeList';
+import CodeDetailModal from '../components/Code/CodeDetailModal';
 import '../styles/pcode.css';
 
 const URL = process.env.REACT_APP_API_URL; // 예: http://localhost:4000
