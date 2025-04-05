@@ -5,7 +5,7 @@ import '../../styles/CodeList.css';
 
 const URL = process.env.REACT_APP_API_URL; // 예: http://localhost:4000
 
-function CodeList({ onCodeClick }) {
+function CodeList({ onCodeClick, onDcodeClick }) {
   const [codes, setCodes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -55,7 +55,9 @@ function CodeList({ onCodeClick }) {
             <td>{index + 1}</td>
             <td key={code.PCODE} onClick={() => onCodeClick && onCodeClick(code)}>{code.PCODE}</td>
             <td>{code.PCODE_NM}</td>
-            <td>[세부분류코드]</td>
+            <td onClick={() => onDcodeClick && onDcodeClick(code)} style={{ cursor: 'pointer', color: 'blue' }}>
+                          [세부분류코드]
+            </td>
           </tr>
         ))}
       </tbody>
